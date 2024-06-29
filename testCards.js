@@ -2,12 +2,21 @@ const numberCards = [2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K", "A"];
 const cardTypes = ["trebol", "spades", "diamond", "clubs"];
 
 function getAllOrderedDecks(allCards = 1000) {
-  console.time()
-  const arrayCards = new Array(allCards).fill(0).map((card) => {
+  console.time();
+
+
+  //here first I create the dictionary to get the latest deck of the card
+  const originalDeck = cardTypes.reduce((a, b) => {
+    return { ...a, ...numberCards.reduce((na, nb) => ({...na, [`${nb} - ${b}`]: 0}), {}) };
+  }, {});
+
+  const arrayCards = new Array(allCards).fill(0).map(card => {
     const randomIndexNumbers = getRandomIntInclusive(0, numberCards.length - 1);
     const randomIndexTypes = getRandomIntInclusive(0, cardTypes.length - 1);
 
-    const newCard = `${numberCards[randomIndexNumbers]} - ${cardTypes[randomIndexTypes]}`;
+    const newCard = `${numberCards[randomIndexNumbers]} - ${cardTypes[
+      randomIndexTypes
+    ]}`;
     return newCard;
   });
 
